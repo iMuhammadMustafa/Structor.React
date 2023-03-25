@@ -18,7 +18,13 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-no-target-blank": "off",
+    "array-callback-return": "warn",
+    "react/prop-types": "off",
+    "no-debugger": "warn",
     "quotes": ["warn", "double"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "no-var": "warn"
   }
 }

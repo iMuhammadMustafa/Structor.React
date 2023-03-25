@@ -3,7 +3,7 @@ import App from "./App";
 it("should return true", () => {
   const x = 5;
   expect(true).toBe(true);
-  // expect(x).toBe(4);
+  //   expect(x).toBe(4);
 });
 
 describe("Simple working test", () => {
