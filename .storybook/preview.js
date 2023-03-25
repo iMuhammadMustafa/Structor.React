@@ -1,14 +1,3 @@
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
-    },
-  },
-  viewport: { viewports: customViewports },
-};
-
 const BREAKPOINTS_INT = {
   xs: 375,
   sm: 600,
@@ -31,3 +20,13 @@ const customViewports = Object.fromEntries(
     ];
   })
 );
+export const parameters = {
+  actions: { argTypesRegex: "^on[A-Z].*" },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+  viewport: { viewports: customViewports },
+};
