@@ -20,6 +20,21 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-no-target-blank": "off",
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [
+          {
+            "char": ">",
+            "alternatives": ["&gt;"]
+          },
+          {
+            "char": "}",
+            "alternatives": ["&#125;"]
+          }
+        ]
+      }
+    ],
     "array-callback-return": "warn",
     "react/prop-types": "off",
     "no-debugger": "warn",
