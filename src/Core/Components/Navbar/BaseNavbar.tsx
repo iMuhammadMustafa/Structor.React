@@ -1,32 +1,33 @@
 import { Link, NavLink } from "react-router-dom";
 
-import styles from "./BaseNavbar.module.css";
+import { RouteElement } from "@/Core/Services/Routing/Routes.Types";
+import { getNavBarEndRoutes, getNavBarStartRoutes } from "@/Core/Services/Routing/Routing.Service";
 
-export interface IBaseNavbar {
-  routes: string[];
-  brand?: string | React.ReactNode;
-  children?: React.ReactNode;
-}
+import SideBar, { SideBarToggler } from "./Sidebar/SideBar";
 
-const BaseNavbar: React.FC<IBaseNavbar> = ({ routes, brand, children }) => {
+export interface IBaseNavbar {}
+
+const BaseNavbar: React.FC<IBaseNavbar> = () => {
+  const startLinks = getNavBarStartRoutes();
+  const endLinks = getNavBarEndRoutes();
   return (
     <>
       <NavBarContainer>
-        {/* <SideBarToggler /> */}
+        <SideBarToggler />
         <NavBarToggler />
         <NavBarLinksContainer>
-          <NavBarStartLinks />
-          <NavBarEndLinks />
+          <NavBarStartLinks links={startLinks} />
+          <NavBarEndLinks links={endLinks} />
         </NavBarLinksContainer>
       </NavBarContainer>
-      {/* <SideBar /> */}
+      <SideBar />
     </>
   );
 };
 
 export default BaseNavbar;
 
-function NavBarContainer({ children }) {
+function NavBarContainer({ children }: { children: Array<React.ReactNode> }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top ">
       <div className="container-fluid">{children}</div>
@@ -49,7 +50,7 @@ function NavBarToggler() {
   );
 }
 
-function NavBarLinksContainer({ children }) {
+function NavBarLinksContainer({ children }: { children: Array<React.ReactNode> }) {
   return (
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">{children[0]}</ul>
@@ -60,22 +61,23 @@ function NavBarLinksContainer({ children }) {
   );
 }
 
-function NavBarStartLinks() {
+function NavBarStartLinks({ links }: { links: Array<RouteElement> }) {
   return (
     <>
-      {getNavBarStartRoutes().map((route, index) => {
-        return (
-          <li key={index} className="nav-item">
-            <NavLink className="nav-link" to={route.path} data-testid="navBarStartLink">
-              {route.name}
-            </NavLink>
-          </li>
-        );
-      })}
+      {links &&
+        links.map((route, index) => {
+          return (
+            <li key={index} className="nav-item">
+              <NavLink className="nav-link" to={route.path} data-testid="navBarStartLink">
+                {route.name}
+              </NavLink>
+            </li>
+          );
+        })}
     </>
   );
 }
-function NavBarEndLinks() {
+function NavBarEndLinks({ links }: { links: Array<RouteElement> }) {
   return (
     <>
       <li className="nav-item">
@@ -102,6 +104,16 @@ function NavBarEndLinks() {
           Register
         </NavLink>
       </li>
+      {links &&
+        links.map((route, index) => {
+          return (
+            <li key={index} className="nav-item">
+              <NavLink className="nav-link" to={route.path} data-testid="navBarEndLink">
+                {route.name}
+              </NavLink>
+            </li>
+          );
+        })}
     </>
   );
 }

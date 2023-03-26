@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 
 import "./App.css";
+import BaseNavbar from "./Core/Components/Navbar/BaseNavbar";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <div className="App">Hello</div>;
+  return (
+    <BrowserRouter>
+      <BaseNavbar>
+        <div className="App">Hello</div>;
+      </BaseNavbar>
+    </BrowserRouter>
+  );
 }
 
 export default App;
