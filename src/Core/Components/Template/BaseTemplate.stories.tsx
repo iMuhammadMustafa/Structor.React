@@ -15,14 +15,3 @@ export const Base = Template.bind({});
 Base.args = {
   ...baseTemplateMockProps.base,
 } as IBaseTemplate;
-
-export const Red = Template.bind({});
-Red.args = {
-  ...baseTemplateMockProps.red,
-} as IBaseTemplate;
-
-export const Blue = Template.bind({});
-Blue.args = {
-  name: "Blue!",
-  backgroundColor: "blue",
-} as IBaseTemplate;
