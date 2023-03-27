@@ -1,33 +1,39 @@
 import { createContext, useContext, useReducer } from "react";
 
-interface IAuthenticationContext {
-  user: any;
-  Login: (user: any) => void;
-  Logout: () => void;
+export interface IAuthenticationContext {
+  state: IAuthenticationState;
+  dispatch: React.Dispatch<IAuthenticationAction>;
 }
 
-interface IAuthenticationState {
+export interface IAuthenticationState {
   isAuthenticated: boolean;
   user: any;
 }
-interface IAuthenticationAction {
-  type: string;
-  payload: any;
+export interface IAuthenticationAction {
+  type: IAuthenticationActionTypes | string;
+  payload?: any;
 }
-const initialState = {
+export enum IAuthenticationActionTypes {
+  LOGIN = "LOGIN",
+  LOGOUT = "LOGOUT",
+}
+
+const initialState: IAuthenticationState = {
   isAuthenticated: false,
   user: null,
 };
 
 const AuthenticationReducer = (state: IAuthenticationState, action: IAuthenticationAction) => {
+  console.log("Action" + action.type);
+  console.log("Payload" + action.payload);
   switch (action.type) {
-    case "LOGIN":
+    case IAuthenticationActionTypes.LOGIN:
       return {
         ...state,
         isAuthenticated: true,
         user: action.payload,
       };
-    case "LOGOUT":
+    case IAuthenticationActionTypes.LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
@@ -38,9 +44,9 @@ const AuthenticationReducer = (state: IAuthenticationState, action: IAuthenticat
   }
 };
 
-const AuthenticationContext = createContext({ initialState, AuthenticationReducer });
+const AuthenticationContext = createContext<IAuthenticationContext>({} as IAuthenticationContext);
 
-export const AuthenticationProvider = ({ children }: { children: Array<React.ReactNode> }) => {
+export const AuthenticationProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(AuthenticationReducer, initialState);
 
   return <AuthenticationContext.Provider value={{ state, dispatch }}>{children}</AuthenticationContext.Provider>;

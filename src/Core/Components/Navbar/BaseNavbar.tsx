@@ -1,5 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 
+import useAuthentication, {
+  IAuthenticationAction,
+  IAuthenticationActionTypes,
+  IAuthenticationState,
+} from "@/Core/Providers/Authentication.Provider";
 import { RouteElement } from "@/Core/Services/Routing/Routes.Types";
 import { getNavBarEndRoutes, getNavBarStartRoutes } from "@/Core/Services/Routing/Routing.Service";
 
@@ -10,6 +15,7 @@ export interface IBaseNavbar {}
 const BaseNavbar: React.FC<IBaseNavbar> = () => {
   const startLinks = getNavBarStartRoutes();
   const endLinks = getNavBarEndRoutes();
+  const { state, dispatch } = useAuthentication();
   return (
     <>
       <NavBarContainer>
@@ -17,7 +23,7 @@ const BaseNavbar: React.FC<IBaseNavbar> = () => {
         <NavBarToggler />
         <NavBarLinksContainer>
           <NavBarStartLinks links={startLinks} />
-          <NavBarEndLinks links={endLinks} />
+          <NavBarEndLinks links={endLinks} authState={state} authAction={dispatch} />
         </NavBarLinksContainer>
       </NavBarContainer>
       <SideBar />
@@ -77,33 +83,48 @@ function NavBarStartLinks({ links }: { links: Array<RouteElement> }) {
     </>
   );
 }
-function NavBarEndLinks({ links }: { links: Array<RouteElement> }) {
+function NavBarEndLinks({
+  links,
+  authState,
+  authAction,
+}: {
+  links: Array<RouteElement>;
+  authState: IAuthenticationState;
+  authAction: React.Dispatch<IAuthenticationAction>;
+}) {
   return (
     <>
-      <li className="nav-item">
-        <Link className="nav-link me-1" to="/">
-          <span className="text-light me-1">{/* <FaUserAlt /> */}</span>
-          Hello, user
-        </Link>
-      </li>
+      {authState.isAuthenticated ? (
+        <>
+          <li className="nav-item">
+            <Link className="nav-link me-1" to="/">
+              <span className="text-light me-1">{/* <FaUserAlt /> */}</span>
+              Hello, {authState.user?.name}
+            </Link>
+          </li>
 
-      <li className="nav-item">
-        <Link className="nav-link" aria-current="page" to="/Logout">
-          <span className="text-light me-1">{/* <FiLogOut /> */}</span>
-          Logout
-        </Link>
-      </li>
+          <li className="nav-item">
+            <button className="nav-link" onClick={() => authAction({ type: IAuthenticationActionTypes.LOGOUT })}>
+              <span className="text-light me-1">{/* <FiLogOut /> */}</span>
+              Logout
+            </button>
+          </li>
+        </>
+      ) : (
+        <>
+          <li className="nav-item">
+            <NavLink className="nav-link" aria-current="page" to="/Login">
+              Login
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/Login" className="nav-link">
+              Register
+            </NavLink>
+          </li>
+        </>
+      )}
 
-      <li className="nav-item">
-        <NavLink className="nav-link" aria-current="page" to="/Login">
-          Login
-        </NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink to="/Login" className="nav-link">
-          Register
-        </NavLink>
-      </li>
       {links &&
         links.map((route, index) => {
           return (
