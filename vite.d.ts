@@ -1,11 +1,8 @@
-// import { render, act, screen } from "@testing-library/react";
-// import userEvent from "@testing-library/user-event";
-
 declare global {
-  const render;
-  const act;
-  const testScreen;
-  const userEvent;
+  const render: typeof import("@testing-library/react").render;
+  const act: typeof import("@testing-library/react").act;
+  const testScreen: typeof import("@testing-library/react").screen;
+  const userEvent: typeof import("@testing-library/user-event");
 }
 
 // declare const render: typeof render
