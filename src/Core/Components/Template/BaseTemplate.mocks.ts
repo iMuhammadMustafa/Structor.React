@@ -1,8 +1,6 @@
 import { IBaseTemplate } from "./BaseTemplate";
 
-const base: IBaseTemplate = {
-  name: "Base!",
-};
+const base: IBaseTemplate = {};
 
 export const baseTemplateMockProps = {
   base,

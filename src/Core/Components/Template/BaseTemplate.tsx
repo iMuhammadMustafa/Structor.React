@@ -1,16 +1,10 @@
 import styles from "./BaseTemplate.module.css";
 
-export interface IBaseTemplate {
-  name: string;
-  backgroundColor?: string;
-}
+export interface IBaseTemplate {}
 
-const BaseTemplate: React.FC<IBaseTemplate> = ({ name, backgroundColor }) => {
-  return (
-    <div className={styles.container} style={{ backgroundColor: backgroundColor }}>
-      Hello world! From {name}
-    </div>
-  );
+// eslint-disable-next-line no-empty-pattern
+const BaseTemplate: React.FC<IBaseTemplate> = ({}) => {
+  return <></>;
 };
 
 export default BaseTemplate;
