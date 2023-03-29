@@ -118,7 +118,7 @@ function NavBarEndLinks({
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/Login" className="nav-link">
+            <NavLink to="/Register" className="nav-link">
               Register
             </NavLink>
           </li>

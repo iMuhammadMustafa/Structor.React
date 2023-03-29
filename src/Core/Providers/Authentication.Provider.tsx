@@ -24,8 +24,6 @@ const initialState: IAuthenticationState = {
 };
 
 const AuthenticationReducer = (state: IAuthenticationState, action: IAuthenticationAction) => {
-  console.log("Action" + action.type);
-  console.log("Payload" + action.payload);
   switch (action.type) {
     case IAuthenticationActionTypes.LOGIN:
       return {
