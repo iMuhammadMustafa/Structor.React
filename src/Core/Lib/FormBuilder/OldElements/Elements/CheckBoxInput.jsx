@@ -1,10 +1,10 @@
 /* eslint-disable react/display-name */
 import { memo } from "react";
 
-import FormLabel from "../OldUI/FormLabel";
-import HelpText from "../OldUI/HelpText";
-import InvalidFeedback from "../OldUI/InValidFeedback";
-import ValidFeedback from "../OldUI/ValidFeedback";
+import FormLabel from "../../OldUI/FormLabel";
+import HelpText from "../../OldUI/HelpText";
+import InvalidFeedback from "../../OldUI/InValidFeedback";
+import ValidFeedback from "../../OldUI/ValidFeedback";
 
 const CheckBoxInput = memo(props => {
   return <MemoizedCheckBoxInput {...props} />;

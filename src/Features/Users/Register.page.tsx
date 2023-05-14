@@ -2,6 +2,7 @@ import { useState } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 
 import Form from "@/Core/Lib/FormBuilder/Form/Form";
+import FormTest from "@/Core/Lib/FormBuilder/Form/FormTest";
 import useAuthentication from "@/Core/Providers/Authentication.Provider";
 import useNotifications from "@/Core/Providers/Notifications.Provider";
 
@@ -109,8 +110,26 @@ export default function Register() {
   return (
     <>
       <Form schema={formSchema} values={user} setValues={setUser} handleFormSubmit={handleFormSubmit}>
-        <></>
+        <>
+          {/* <Form.TextInput
+            value="500"
+            type={"text"}
+            name={"username"}
+            label={"Username"}
+            placeHolder={"Enter your username"}
+            // helpText={"Choose a unique username"}
+          /> */}
+          {/* <Form.HelpText id="11212" /> */}
+        </>
       </Form>
+      <FormTest>
+        <FormTest.HelpText id="helpTextId">
+          <div>Help text</div>
+        </FormTest.HelpText>
+
+
+        <FormTest.HelpText id="helpTextId" text="This is help text." />
+      </FormTest>
     </>
   );
 }
